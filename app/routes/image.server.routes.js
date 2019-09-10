@@ -1,0 +1,12 @@
+var express = require('express')
+var router = express.Router()
+var controller = require('../controllers/image.server.controller.js')
+router.get('/', controller.showLandingPage)
+router.post('/upload', controller.uploadImage)
+router.post('/settings-updated', controller.updateSettingsPage)
+router.get('/home', controller.showUploadPage)
+router.get('/gallery', controller.showGalleryPage)
+router.get('/settings', controller.showSettingsPage)
+router.get('/successful-upload', controller.showSuccessfulUploadPage)
+router.get('/failed-upload', controller.showFailedUploadPage)
+module.exports = router
