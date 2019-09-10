@@ -94,13 +94,13 @@ module.exports.uploadImage = function (req, res, next) {
     var s3pathforDDB="s3://"+bucketName+"/"+"processed/"+processed_filename
 
     var uuid1 = uuidv1()
-        
+
     var params = {
         TableName : 'awsbiopho',
         Item: {
         "id": uuid1,
         "S3Path": s3pathforDDB
-        
+
         }
     };
 
@@ -111,11 +111,6 @@ documentClient.put(params, function(err, data) {
   else {
     console.log("image uploaded")
     var fake=1000000
-    if(counter>2){
-        while(fake>0){
-            fake--
-        }
-    }
     if(counter==3){
         count=0
     }
@@ -129,7 +124,7 @@ documentClient.put(params, function(err, data) {
         res.redirect("/settings")
     }
     });
-    
+
     var root = process.env.NODE_PATH; // ~/ELS_2019
     var tmp_raw_dir = root + "./tmp/raw-images/";
     var raw_tmp_image = tmp_raw_dir + Date.now().toString() + "_" + req.file.originalname;
@@ -164,19 +159,19 @@ module.exports.updateSettingsPage = function (req, res) {
         s3bucketname: s3_main_bucket,
         s3region: s3_main_region
     }, function(req,err){
-        let s3json = { 
-            "s3bucketname":s3_main_bucket , 
+        let s3json = {
+            "s3bucketname":s3_main_bucket ,
             "region": s3_main_region
         };
 
         fs.writeFile('out.json', JSON.stringify(s3json), 'utf8', function (err) {
-        if (err) 
+        if (err)
         {
             return console.log(err);
         }
 
         console.log("The file was saved!");
-        }); 
+        });
 
         res.redirect('/home')
 
