@@ -27,9 +27,9 @@ module.exports.uploadImage = function (req, res, next) {
 
     fs.access("out.json", error => {
     if (!error) {
-        let s3json=require("out.json")
-        s3_main_bucket=s3json["s3bucketname"]
-        s3_main_region=s3json["region"]
+        // let s3json=require("out.json")
+        // s3_main_bucket=s3json["s3bucketname"]
+        // s3_main_region=s3json["region"]
         fs.readFile(req.file.path, function (err, data) {
         if (err) {
             console.log(err);
