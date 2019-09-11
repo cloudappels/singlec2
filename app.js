@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var credentials = new aws.SharedIniFileCredentials({
-    profile: "default" // TO-DO
-});
-aws.config.credentials = credentials;
+// var credentials = new aws.SharedIniFileCredentials({
+//     profile: "default" // TO-DO
+// });
+// aws.config.credentials = credentials;
 
 const s3 = new aws.S3({
     apiVersion: "2006-03-01",

@@ -11,13 +11,13 @@ var fs = require("fs");
 aws.config.apiVersions = {
     s3: "2006-03-01"
 };
-aws.config.region = 'ap-southeast-1';
-
-counter=0
+aws.config.region = 'ap-southeast-2';
 
 const s3 = new aws.S3();
+
+
 s3_main_bucket = "";
-s3_main_region = "ap-southeast-1";
+s3_main_region = "ap-southeast-2";
 
 module.exports.showLandingPage = function(req,res){
 	res.render("landingPage.ejs")
@@ -27,9 +27,9 @@ module.exports.uploadImage = function (req, res, next) {
 
     fs.access("out.json", error => {
     if (!error) {
-        // let s3json=require("out.json")
-        // s3_main_bucket=s3json["s3bucketname"]
-        // s3_main_region=s3json["region"]
+        let s3json=require("out.json")
+        s3_main_bucket=s3json["s3bucketname"]
+        s3_main_region=s3json["region"]
         fs.readFile(req.file.path, function (err, data) {
         if (err) {
             console.log(err);
@@ -101,8 +101,8 @@ module.exports.uploadImage = function (req, res, next) {
         "id": uuid1,
         "S3Path": s3pathforDDB
 
-        }
-    };
+  }
+};
 
 var documentClient = new aws.DynamoDB.DocumentClient();
 
@@ -110,10 +110,7 @@ documentClient.put(params, function(err, data) {
   if (err) console.log(err);
   else {
     console.log("image uploaded")
-    var fake=1000000
-    if(counter==3){
-        count=0
-    }
+
   }
 });
     // ====================================================
@@ -130,6 +127,7 @@ documentClient.put(params, function(err, data) {
     var raw_tmp_image = tmp_raw_dir + Date.now().toString() + "_" + req.file.originalname;
     var processed_raw_dir = root + "./tmp/processed-images/";
     var processed_tmp_image = processed_raw_dir + Date.now().toString() + "_" + req.file.originalname;
+
 
 };
 
